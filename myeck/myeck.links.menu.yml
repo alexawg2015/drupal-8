@@ -1,0 +1,3 @@
+myeck.menu_links:
+  deriver: 'Drupal\myeck\Plugin\Derivative\DynamicMenuLinks'
+  weight: 100

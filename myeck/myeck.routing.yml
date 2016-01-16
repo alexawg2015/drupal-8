@@ -1,0 +1,19 @@
+myeck.creating_new_entity:
+  path: '/admin/structure/creating-new-entity'
+  defaults:
+    _form: '\Drupal\myeck\Form\CreatingNewEntityForm'
+    _title: 'Creating New Entity'
+  requirements:
+    _permission: 'administer myeck entity'
+
+myeck.new_entity_download:
+#  path: 'admin/structure/creating-new-entity/download'
+  path: 'admin/structure/creating-new-entity/download'
+  defaults:
+    _controller: 'Drupal\myeck\Controller\MyeckDownloadEntityController::downloadExport'
+  requirements:
+    _permission: 'administer myeck entity'
+
+
+route_callbacks:
+  - '\Drupal\myeck\Routing\MyeckRoutes::routes'

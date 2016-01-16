@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the {{ values.module_name }} module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function {{ values.module_id }}_install() {
+    $entity_type = array(
+        'module_title' => '{{ values.module_name }}',
+        'module_name' => '{{ values.module_id }}',
+        'entity_title' => '{{ values.entity_name }}',
+        'entity_id' => '{{ values.entity_machine_name }}',
+        'entity_class' => '{{ values.entity_name_class }}',
+        'base_table' => 'myeck_{{ values.entity_machine_name }}',
+        'settings' => array(
+            'entity_label' => '{{ values.entity_label }}',
+            'entitty_id' => '{{ values.entity_id }}',
+            'fields' => array(
+{% for created_field in values.created_fields %}
+                '{{ created_field.machine_name }}' => array(
+                    'machine_name' => '{{ created_field.machine_name }}',
+                    'label' => '{{ created_field.label }}',
+                    'storage_type' => '{{ created_field.storage_type }}',
+                    'view_enable' => {{ created_field.view_enable }},
+                    'view_formatter' => '{{ created_field.view_formatter }}',
+                    'form_enable' => {{ created_field.form_enable }},
+                    'form_widget' => '{{ created_field.form_widget }}',
+                ),
+{% endfor %}
+            ),
+            'show_fields' => array(
+                {% for key, show_field in values.show_fields %}
+                    '{{ key }}' => '{{ show_field }}',
+                {% endfor %}
+            ),
+        ),
+    );
+    \Drupal\myeck\MyeckConfig::addEntityType($entity_type);
+}
+
+/**
+* Implements hook_uninstall().
+*/
+function {{ values.module_id }}_uninstall() {
+    \Drupal\myeck\MyeckConfig::deleteEntityType('{{ values.entity_machine_name }}');
+}

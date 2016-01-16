@@ -1,0 +1,151 @@
+<?php
+
+/**
+ * @file
+ * Contains \Drupal\{{ values.module_id }}\Entity\{{ values.entity_name_class }}.
+ */
+
+namespace Drupal\{{ values.module_id }}\Entity;
+
+use Drupal\myeck\Entity\Myeck;
+use Drupal\{{ values.module_id }}\{{ values.entity_name_class }}Interface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Defines the {{ values.entity_name }} entity.
+ *
+ * @ingroup {{ values.module_id }}
+ *
+ * @ContentEntityType(
+ *   id = "{{ values.entity_machine_name }}",
+ *   label = @Translation("{{ values.entity_name }}"),
+ *   handlers = {
+ *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
+ *     "list_builder" = "Drupal\{{ values.module_id }}\Entity\{{ values.entity_name_class }}ListBuilder",
+ *     "views_data" = "Drupal\{{ values.module_id }}\Entity\{{ values.entity_name_class }}ViewsData",
+ *     "form" = {
+ *       "default" = "Drupal\{{ values.module_id }}\Form\{{ values.entity_name_class }}Form",
+ *       "add" = "Drupal\{{ values.module_id }}\Form\{{ values.entity_name_class }}Form",
+ *       "edit" = "Drupal\{{ values.module_id }}\Form\{{ values.entity_name_class }}Form",
+ *       "delete" = "Drupal\myeck\Form\MyeckDeleteForm",
+ *     },
+ *     "access" = "Drupal\{{ values.module_id }}\{{ values.entity_name_class }}AccessControlHandler",
+ *   },
+ *   base_table = "myeck_{{ values.entity_machine_name }}",
+ *   admin_permission = "administer {{ values.entity_machine_name }} entity",
+ *   fieldable = TRUE,
+ *   entity_keys = {
+ *     "id" = "{{ values.entity_id }}"{% if values.set_key %},{% endif %}
+ {% for key, field in values.set_key %}
+
+ *     "{{ key }}" = "{{ field }}"{% if not loop.last %},{% endif %}
+ {% endfor %}
+
+ *   },
+ *   links = {
+ *     "canonical" = "/content-{{ values.entity_machine_name }}/{{ '{' }}{{ values.entity_machine_name }}{{ '}' }}",
+ *     "edit-form" = "/content-{{ values.entity_machine_name }}/{{ '{' }}{{ values.entity_machine_name }}{{ '}' }}/edit",
+ *     "delete-form" = "/content-{{ values.entity_machine_name }}/{{ '{' }}{{ values.entity_machine_name }}{{ '}' }}/delete",
+ *     "collection" = "/content-{{ values.entity_machine_name }}/list"
+ *   },
+ *   field_ui_base_route = "myeck.{{ values.entity_machine_name }}.settings",
+ * )
+ */
+class {{ values.entity_name_class }} extends Myeck implements {{ values.entity_name_class }}Interface {
+
+/**
+* {@inheritdoc}
+*/
+public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+$fields['{{ values.entity_id }}'] = BaseFieldDefinition::create('integer')
+->setLabel(t('ID'))
+->setDescription(t('The ID of the {{ values.entity_name }} entity.'))
+->setReadOnly(TRUE);
+
+{% if values.uuid %}
+    $fields['uuid'] = BaseFieldDefinition::create('uuid')
+    ->setLabel(t('UUID'))
+    ->setDescription(t('The UUID of the My test entity entity.'))
+    ->setReadOnly(TRUE);
+
+{% endif %}
+{% if values.user_id %}
+
+    $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
+    ->setLabel(t('Authored by'))
+    ->setDescription(t('The user ID of author of the My test entity entity.'))
+    ->setRevisionable(TRUE)
+    ->setSetting('target_type', 'user')
+    ->setSetting('handler', 'default')
+    ->setDefaultValueCallback('Drupal\node\Entity\Node::getCurrentUserId')
+    ->setTranslatable(TRUE)
+    ->setDisplayOptions('view', array(
+    'label' => 'hidden',
+    'type' => 'author',
+    'weight' => 0,
+    ))
+    ->setDisplayOptions('form', array(
+    'type' => 'entity_reference_autocomplete',
+    'weight' => 5,
+    'settings' => array(
+    'match_operator' => 'CONTAINS',
+    'size' => '60',
+    'autocomplete_type' => 'tags',
+    'placeholder' => '',
+    ),
+    ))
+    ->setDisplayConfigurable('form', TRUE)
+    ->setDisplayConfigurable('view', TRUE);
+{% endif %}
+{% for created_field in values.created_fields %}
+    $fields['{{ created_field.machine_name }}'] = BaseFieldDefinition::create('{{ created_field.storage_type }}')
+    ->setLabel(t('{{ created_field.label }}'))
+    ->setDescription(t('The {{ created_field.label }}.'))
+    {% if created_field.settings %}
+        ->setSettings(array(
+        {% for name_setting, setting in created_field.settings %}
+            '{{ name_setting }}' => '{{ setting }}',
+        {% endfor %}
+        ))
+    {% endif %}
+    ->setDefaultValue('')
+    {% if created_field.view_enable %}
+        ->setDisplayOptions('view', array(
+        'label' => '{{ created_field.label }}',
+        'type' => '{{ created_field.view_formatter }}',
+        'weight' => -4,
+        ))
+    {% endif %}
+    {% if created_field.form_enable %}
+        ->setDisplayOptions('form', array(
+        'type' => '{{ created_field.form_widget }}',
+        'weight' => -4,
+        ))
+    {% endif %}
+    ->setDisplayConfigurable('form', {% if created_field.form_enable %}TRUE{% else %}ELSE{% endif %})
+    ->setDisplayConfigurable('view', {% if created_field.view_enable %}TRUE{% else %}ELSE{% endif %});
+{% endfor %}
+{% if values.language %}
+
+    $fields['langcode'] = BaseFieldDefinition::create('language')
+    ->setLabel(t('Language code'))
+    ->setDescription(t('The language code for the My test entity entity.'));
+{% endif %}
+{% if values.created %}
+
+    $fields['created'] = BaseFieldDefinition::create('created')
+    ->setLabel(t('Created'))
+    ->setDescription(t('The time that the entity was created.'));
+{% endif %}
+{% if values.changed %}
+
+    $fields['changed'] = BaseFieldDefinition::create('changed')
+    ->setLabel(t('Changed'))
+    ->setDescription(t('The time that the entity was last edited.'));
+{% endif %}
+
+return $fields;
+}
+
+}

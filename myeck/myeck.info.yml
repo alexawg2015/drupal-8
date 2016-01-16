@@ -1,0 +1,9 @@
+name: My Entity Construction Kit
+type: module
+description: My ECK allows users to create custom entities with UI
+package: MyModule
+core: 8.x
+version: 8.1.dev
+dependencies:
+  - options
+  - entity_reference

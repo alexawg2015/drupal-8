@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Contains \Drupal\{{ values.module_id }}\Form\{{ values.entity_name_class }}SettingsForm.
+ */
+
+namespace Drupal\{{ values.module_id }}\Form;
+
+use Drupal\myeck\Form\MyeckSettingsForm;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Class {{ values.entity_name_class }}SettingsForm.
+ *
+ * @package Drupal\{{ values.module_id }}\Form
+ *
+ * @ingroup {{ values.module_id }}
+ */
+class {{ values.entity_name_class }}SettingsForm extends MyeckSettingsForm {
+  /**
+   * Returns a unique string identifying the form.
+   *
+   * @return string
+   *   The unique string identifying the form.
+   */
+  public function getFormId() {
+    return '{{ values.entity_name_class }}_settings';
+  }
+
+  /**
+   * Form submission handler.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Empty implementation of the abstract submit class.
+  }
+
+
+  /**
+   * Defines the settings form for {{ values.entity_name }} entities.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return array
+   *   Form definition array.
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['{{ values.entity_name_class }}_settings']['#markup'] = 'Settings form for {{ values.entity_name }} entities. Manage field settings here.';
+    return $form;
+  }
+
+}

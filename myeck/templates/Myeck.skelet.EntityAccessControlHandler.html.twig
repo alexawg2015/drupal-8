@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains \Drupal\{{ values.module_id }}\{{ values.entity_name_class }}AccessControlHandler.
+ */
+
+namespace Drupal\{{ values.module_id }};
+
+use Drupal\Core\Entity\EntityAccessControlHandler;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
+use Drupal\myeck\MyeckAccessControlHandler;
+
+/**
+ * Access controller for the {{ values.entity_name }} entity.
+ *
+ * @see \Drupal\{{ values.module_id }}\Entity\{{ values.entity_name_class }}.
+ */
+class {{ values.entity_name_class }}AccessControlHandler extends MyeckAccessControlHandler {
+
+
+}

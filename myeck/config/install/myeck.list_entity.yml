@@ -1,0 +1,25 @@
+myeck_type_entity:
+  myeck:
+    module_title: 'My ECK'
+    module_name: myeck
+    entity_title: 'My ECK'
+    entity_id: myeck
+    entity_class: Myeck
+    base_table: myeck
+    settings:
+      entity_label: name
+      entitty_id: id
+      fields:
+        name:
+          machine_name: name
+          label: Name
+          storage_type: 'string'
+          view_enable: TRUE
+          view_formatter: 'string'
+          form_enable: TRUE
+          form_widget: 'string_textfield'
+      show_fields:
+        name: Name
+
+
+

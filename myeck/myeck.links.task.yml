@@ -1,0 +1,9 @@
+myeck.creating_new_entity:
+  route_name:  myeck.creating_new_entity
+  base_route:  myeck.myeck.settings
+  title: Creating new entity
+  weight: 10
+
+myeck.local_tasks:
+  deriver: 'Drupal\myeck\Plugin\Derivative\DynamicLocalTasks'
+  weight: 100

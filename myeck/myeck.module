@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * @file
+ * Contains myeck.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function myeck_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the mymodule module.
+    case 'help.page.myeck':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('myeck') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function myeck_theme() {
+  $theme = array(
+    'Myeck_skelet_Entity' => array(
+      'template' => 'Myeck.skelet.Entity',
+      'variables' => array('values' => NULL),
+    ),
+    'Myeck_skelet_install' => array(
+      'template' => 'Myeck.skelet.install',
+      'variables' => array('values' => NULL),
+    ),
+    'Myeck_skelet_EntityAccessControlHandler' => array(
+      'template' => 'Myeck.skelet.EntityAccessControlHandler',
+      'variables' => array('values' => NULL),
+    ),
+    'Myeck_skelet_EntityDeleteForm' => array(
+      'template' => 'Myeck.skelet.EntityDeleteForm',
+      'variables' => array('values' => NULL),
+    ),
+    'Myeck_skelet_EntityForm' => array(
+      'template' => 'Myeck.skelet.EntityForm',
+      'variables' => array('values' => NULL),
+    ),
+    'Myeck_skelet_EntityInterface' => array(
+      'template' => 'Myeck.skelet.EntityInterface',
+      'variables' => array('values' => NULL),
+    ),
+    'Myeck_skelet_EntityListBuilder' => array(
+      'template' => 'Myeck.skelet.EntityListBuilder',
+      'variables' => array('values' => NULL),
+    ),
+    'Myeck_skelet_EntitySettingsForm' => array(
+      'template' => 'Myeck.skelet.EntitySettingsForm',
+      'variables' => array('values' => NULL),
+    ),
+    'Myeck_skelet_EntityViewsData' => array(
+      'template' => 'Myeck.skelet.EntityViewsData',
+      'variables' => array('values' => NULL),
+    ),
+  );
+
+  return $theme;
+}
+
+/**
+ * Implements hook_file_download().
+ */
+function myeck_file_download($uri) {
+  $scheme = file_uri_scheme($uri);
+  $target = file_uri_target($uri);
+  $session = \Drupal::request()->getSession();
+  if (isset($session)) {
+    $archive_name = $session->get('myeck_new_entity_download');
+    if ($scheme == 'temporary' && $target == $archive_name) {
+      return array(
+        'Content-disposition' => 'attachment; filename="' . $archive_name . '"',
+      );
+    }
+  }
+}
+

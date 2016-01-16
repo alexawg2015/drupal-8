@@ -1,0 +1,5 @@
+form-creating-entity:
+  version: 1.x
+  css:
+    component:
+      css/creating_new_entity_form.css: {}

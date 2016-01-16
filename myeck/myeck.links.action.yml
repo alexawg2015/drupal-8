@@ -1,0 +1,4 @@
+
+myeck.action_links:
+  deriver: 'Drupal\myeck\Plugin\Derivative\DynamicActionLinks'
+  weight: 100
