@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Contains {{ values.module_id }}.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function {{ values.module_id }}_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the {{ values.module_id }} module.
+    case 'help.page.{{ values.module_id }}':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('test test') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+* Implements hook_theme().
+*/
+function {{ values.module_id }}_theme() {
+  $theme = [];
+
+  return $theme;
+}

@@ -36,6 +36,10 @@ function myeck_theme() {
       'template' => 'Myeck.skelet.install',
       'variables' => array('values' => NULL),
     ),
+    'Myeck_skelet_module' => array(
+      'template' => 'Myeck.skelet.module',
+      'variables' => array('values' => NULL),
+    ),
     'Myeck_skelet_EntityAccessControlHandler' => array(
       'template' => 'Myeck.skelet.EntityAccessControlHandler',
       'variables' => array('values' => NULL),

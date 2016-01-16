@@ -202,6 +202,10 @@ class MyeckCreatingNewEntityController {
       case 'install':
         $file_info['subdirectory'] = NULL;
         $file_info['filename'] = $values['module_id'] . '.install';
+        break;
+      case 'module':
+        $file_info['subdirectory'] = NULL;
+        $file_info['filename'] = $values['module_id'] . '.module';
     }
     $build_file = array(
       '#theme' => 'Myeck_skelet_' . $name,
@@ -237,7 +241,8 @@ class MyeckCreatingNewEntityController {
       'EntityListBuilder',
       'EntitySettingsForm',
       'EntityViewsData',
-      'install'
+      'install',
+      'module'
     ); //'EntityDeleteForm',
     foreach ($lists_php_file as $name_php_file) {
       $package['files'][] = $this->generatePhpfile($name_php_file, $values);
